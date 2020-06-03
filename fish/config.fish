@@ -14,7 +14,9 @@ end
 # the ssh agent. But when that subprocess is a fish shell, we want them to remain Universal
 # so that when they change, they change everywhere (including tmux and Python virtualenvs).
 # A new ssh login may validly change them, and when this happens the fish shell will set the new values
-# in Global scope.
-# Both of these use-cases are handled by always running following on every new fish shell.
+# in global scope.
+# Both of these use-cases are handled by always running the following on every new fish shell.
 # It "uplifts" the nearest scope values into Universal scope only.
-uplift-variable-to-universal SSH_AUTH_SOCK SSH_CLIENT SSH_CONNECTION
+if status --is-interactive
+    uplift-variable-to-universal SSH_AUTH_SOCK SSH_CLIENT SSH_CONNECTION
+end
