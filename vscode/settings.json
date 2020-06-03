@@ -1,0 +1,31 @@
+{
+    "editor.formatOnType": true,
+    "python.pythonPath": "/home/tcorbettclark/.pyenv/shims/python",
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/home/tcorbettclark/.pyenv/shims/black",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--ignore", "E501,F541", "--max-complexity", "9"],
+    "python.sortImports.path": "/home/tcorbettclark/.pyenv/shims/isort",
+    "python.sortImports.args": [
+        "--multi-line",
+        "3",
+        "--trailing-comma",
+        "--force-grid-wrap",
+        "0",
+        "--combine-as",
+        "--line-width",
+        "88",
+        "-y"
+    ],
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.vscode": true
+    },
+    "editor.detectIndentation": false,
+    "window.zoomLevel": -1,
+    "git.confirmSync": false,
+    "extensions.ignoreRecommendations": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "remote.SSH.showLoginTerminal": true,
+    "terminal.integrated.shell.linux": "/usr/bin/fish",
+}
