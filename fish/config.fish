@@ -1,13 +1,30 @@
-# Always set the path explicitly for full control, and in a way which does not interfere with Python virtualenvs.
 if status --is-login
-    set -gx PATH /home/tcorbettclark/.pyenv/shims /home/tcorbettclark/.pyenv/bin /home/tcorbettclark/.poetry/bin /home/tcorbettclark/node_modules/.bin /home/tcorbettclark/.local/bin /usr/local/sbin /usr/sbin /sbin /usr/local/bin /usr/bin /bin
+    # Always set the path explicitly for full control, and in a way which does not interfere with Python virtualenvs.
+
+    # pyenv
+    set -gx PYENV_ROOT "$HOME/.pyenv"
+    fish_add_path -P $PYENV_ROOT/shims $PYENV_ROOT/bin
+
+    # pipx
+    fish_add_path -P "$HOME/.local/bin"
+     
+    # brew installed curl
+    fish_add_path -P /usr/local/opt/curl/bin
+    
+    # standard unix paths
+    fish_add_path -P /usr/local/sbin /usr/sbin /sbin /usr/local/bin /usr/bin /bin
 end
 
-# Setup autocompletions for pyenv.
+# Setup pyenv, and have pyenv-virtualenv automatically activate
+# virtualenvs on entering directory with .python-version
 if status --is-interactive
-    set -gx PYENV_SHELL fish
-    source '/home/tcorbettclark/.pyenv/libexec/../completions/pyenv.fish'
-    command pyenv rehash 2>/dev/null
+    if type -q pyenv
+        pyenv init - | source
+    end
+
+    if type -q pyenv
+        pyenv virtualenv-init - | source
+    end
 end
 
 # Certain SSH variables are (correctly) exported to subprocesses e.g. to forward
@@ -20,3 +37,6 @@ end
 if status --is-interactive
     uplift-variable-to-universal SSH_AUTH_SOCK SSH_CLIENT SSH_CONNECTION
 end
+
+# Make starfish manage the prompt always.
+starship init fish | source
